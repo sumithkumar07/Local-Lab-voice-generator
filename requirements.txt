@@ -1,0 +1,18 @@
+# Text-to-Speech Web App with Kokoro TTS
+
+## Core Dependencies
+kokoro>=0.9.4
+soundfile
+fastapi
+uvicorn[standard]
+python-multipart
+pydub
+
+## PyTorch (for GPU support - install separately based on your CUDA version)
+# For CUDA 11.8: pip install torch --index-url https://download.pytorch.org/whl/cu118
+# For CUDA 12.1: pip install torch --index-url https://download.pytorch.org/whl/cu121
+# For CPU only: pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch
+scipy
+styletts2
+nltk

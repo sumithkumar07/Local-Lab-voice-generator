@@ -1,0 +1,29 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated Audio (Don't upload user files)
+audio_output/
+voice_previews/
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Test Files
+test_*.py
+verify_*.py
+*.wav
+*.mp3
+
+# Gemini Brain
+.gemini/

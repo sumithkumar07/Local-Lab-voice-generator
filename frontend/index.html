@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate natural-sounding voice narration for YouTube videos using AI">
+    <title>Local Lab | AI Voice Generator</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style_v2.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="/static/logo.jpg?v=3" alt="Local Lab Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>Local Lab</h1>
+                    <span class="tagline">Advanced AI Voice Studio</span>
+                </div>
+            </div>
+            <div class="model-badge">
+                <span class="badge-dot"></span>
+                Kokoro-82M
+            </div>
+        </header>
+
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Driver Alert (Hidden by default) -->
+            <div id="driverAlert" class="driver-alert hidden">
+                <span>⚠️ NVIDIA GPU detected but drivers missing.</span>
+                <a href="https://www.nvidia.com/Download/index.aspx" target="_blank" class="driver-link">Fix Drivers
+                    ↗</a>
+            </div>
+
+            <!-- Left Panel - Input -->
+            <section class="panel input-panel">
+                <div class="panel-header">
+                    <h2>Input Text</h2>
+                    <span class="char-count" id="charCount">0 / 5000</span>
+                </div>
+
+                <!-- Model Selection (Compact) -->
+                <div class="model-selection-container"
+                    style="margin-bottom: 1rem; padding: 0; display: flex; gap: 10px;">
+                    <div class="model-option active" onclick="selectModel('kokoro')" id="model-kokoro"
+                        style="padding: 0.75rem; flex: 1;">
+                        <div class="model-info">
+                            <h3 style="font-size: 0.9rem; margin:0;">⚡ Standard</h3>
+                        </div>
+                    </div>
+                    <div class="model-option" onclick="selectModel('pro')" id="model-pro"
+                        style="padding: 0.75rem; flex: 1;">
+                        <div class="model-info">
+                            <h3 style="font-size: 0.9rem; margin:0;">🚀 Pro (GPU)</h3>
+                        </div>
+                        <!-- Lock Icon -->
+                        <i class="pro-lock hidden" id="pro-lock"
+                            style="font-style: normal; position: static; margin-left: 5px;">🔒</i>
+                    </div>
+                </div>
+
+                <textarea id="textInput" class="text-input" placeholder="Type your text here..."
+                    spellcheck="true"></textarea>
+
+                <!-- Voice Selection -->
+                <div class="voice-section">
+                    <h3>🎤 Voice Selection</h3>
+                    <div class="voice-grid" id="voiceGrid">
+                        <!-- Voices will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Speed Control -->
+                <div class="speed-section">
+                    <div class="speed-header">
+                        <h3>⚡ Speed</h3>
+                        <span class="speed-value" id="speedValue">1.0x</span>
+                    </div>
+                    <input type="range" id="speedSlider" class="speed-slider" min="0.5" max="2.0" step="0.1"
+                        value="1.0">
+                    <div class="speed-labels">
+                        <span>Slow</span>
+                        <span>Normal</span>
+                        <span>Fast</span>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-icon">🎬</span>
+                    <span class="btn-text">Generate Voice</span>
+                </button>
+            </section>
+
+            <!-- Right Panel - Output -->
+            <section class="panel output-panel">
+                <div class="panel-header">
+                    <h2>🔊 Generated Audio</h2>
+                </div>
+
+                <!-- Audio Player -->
+                <div class="audio-container" id="audioContainer">
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">🎧</div>
+                        <p>Your generated audio will appear here</p>
+                        <span class="empty-hint">Enter text and click "Generate Voice"</span>
+                    </div>
+
+                    <div class="audio-player hidden" id="audioPlayer">
+                        <div class="waveform" id="waveform">
+                            <!-- Animated waveform bars -->
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+
+                        <audio id="audioElement" controls></audio>
+
+                        <div class="audio-info">
+                            <span class="duration" id="audioDuration">Duration: --</span>
+                            <span class="voice-used" id="voiceUsed">Voice: --</span>
+                        </div>
+
+                        <div class="audio-actions">
+                            <button id="downloadBtn" class="action-btn download-btn">
+                                <span>⬇️</span> WAV
+                            </button>
+                            <button id="downloadMp3Btn" class="action-btn download-mp3-btn">
+                                <span>🎵</span> MP3
+                            </button>
+                            <button id="copyBtn" class="action-btn copy-btn">
+                                <span>📋</span> Link
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div class="loading-state hidden" id="loadingState">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Generating your voice...</p>
+                        <span class="loading-hint">This may take a moment for longer texts</span>
+                    </div>
+                </div>
+
+                <!-- Tips Section -->
+                <div class="tips-section">
+                    <h3>💡 Pro Tips for YouTube</h3>
+                    <ul class="tips-list">
+                        <li>Use <code>...</code> for dramatic pauses</li>
+                        <li>Add <code>—</code> for natural breaks</li>
+                        <li>Keep sentences short for better flow</li>
+                        <li>Use punctuation for proper intonation</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong>Local Lab</strong> • Powered by Kokoro-82M</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="toast-icon"></span>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="/static/script.js?v=2"></script>
+</body>
+
+</html>
