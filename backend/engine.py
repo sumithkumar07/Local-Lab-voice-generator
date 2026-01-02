@@ -3,7 +3,7 @@ import os
 import torch
 import logging
 from kokoro import KPipeline
-from .styletts2 import StyleTTS2
+from .model_styletts2 import StyleTTS2
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
