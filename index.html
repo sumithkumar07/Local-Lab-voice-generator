@@ -137,6 +137,7 @@
             margin-bottom: 24px;
             background: linear-gradient(180deg, #fff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -370,7 +371,21 @@
     <nav>
         <div class="container nav-content">
             <a href="/" class="logo">
-                <div class="logo-icon">⚡</div>
+                <div class="logo-icon">
+                    <!-- Professional Inline SVG Logo -->
+                    <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0" y1="0" x2="40" y2="40"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#818cf8" />
+                                <stop offset="100%" stop-color="#c084fc" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0" y="0" width="40" height="40" rx="10" fill="url(#logoGradient)" />
+                        <path d="M22 10L14 22H20L18 30L26 18H20L22 10Z" fill="white" stroke="white" stroke-width="2"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
                 Local Lab
             </a>
             <a href="https://www.youtube.com/@Locallab9" class="subscribe-btn" target="_blank">
