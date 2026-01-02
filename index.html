@@ -374,20 +374,31 @@
                 <div class="logo-icon">
                     <!-- Professional Inline SVG Logo -->
                     <!-- Custom 3D Cube SVG Logo -->
+                    <!-- Custom 'Circuit Cube' SVG Logo -->
                     <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 0L37.3205 10V30L20 40L2.67949 30V10L20 0Z" fill="url(#cubeGradient)"
-                            fill-opacity="0.2" />
-                        <path d="M20 0L37.3205 10V30L20 40L2.67949 30V10L20 0Z" stroke="url(#cubeGradient)"
-                            stroke-width="2" />
-                        <path d="M20 0V20M20 20L37.3205 10M20 20L2.67949 10M20 20V40" stroke="url(#cubeGradient)"
-                            stroke-width="2" />
                         <defs>
-                            <linearGradient id="cubeGradient" x1="0" y1="0" x2="40" y2="40"
+                            <linearGradient id="circuitGradient" x1="0" y1="0" x2="40" y2="40"
                                 gradientUnits="userSpaceOnUse">
                                 <stop offset="0%" stop-color="#818cf8" />
                                 <stop offset="100%" stop-color="#c084fc" />
                             </linearGradient>
                         </defs>
+                        <!-- Main Cube Outline -->
+                        <path d="M20 2L37.3205 12V32L20 42L2.67949 32V12L20 2Z" stroke="url(#circuitGradient)"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <!-- Inner Edge Lines (Y shape) -->
+                        <path d="M20 2V22 M20 22L37.3205 12 M20 22L2.67949 12" stroke="url(#circuitGradient)"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <!-- Top Face Circuits -->
+                        <path d="M20 12L25 9M15 9L20 12" stroke="url(#circuitGradient)" stroke-width="1.5" />
+                        <circle cx="25" cy="9" r="1.5" fill="url(#circuitGradient)" />
+                        <circle cx="15" cy="9" r="1.5" fill="url(#circuitGradient)" />
+                        <!-- Right Face Circuits -->
+                        <path d="M28 17V22L32 24" stroke="url(#circuitGradient)" stroke-width="1.5" />
+                        <circle cx="32" cy="24" r="1.5" fill="url(#circuitGradient)" />
+                        <!-- Left Face Circuits -->
+                        <path d="M8 24L12 22V17" stroke="url(#circuitGradient)" stroke-width="1.5" />
+                        <circle cx="8" cy="24" r="1.5" fill="url(#circuitGradient)" />
                     </svg>
                 </div>
                 Local Lab
