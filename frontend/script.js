@@ -112,13 +112,9 @@ async function checkHardwareStatus() {
                 badge.style.borderColor = 'rgba(245, 158, 11, 0.3)';
                 badge.title = data.message;
 
-                // Show Driver Alert
-                const alert = document.getElementById('driverAlert');
-                if (alert) alert.classList.remove('hidden');
-
                 // Disable Pro (or keep valid but warn?) - Let's disable for safety
                 // Or maybe allow clicking to see the alert?
-                // Decided: Disable visual, but show alert.
+                // Decided: Disable visual.
                 const proCard = document.getElementById('model-pro');
                 if (proCard) {
                     proCard.classList.add('disabled');
@@ -154,8 +150,6 @@ function selectModel(modelType) {
         if (!state.hardware || !state.hardware.can_run_pro) {
             if (state.hardware && state.hardware.platform === 'GPU_DRIVER_MISSING') {
                 showToast("Please install NVIDIA drivers first", "warning");
-                // Ensure alert is visible
-                document.getElementById('driverAlert').classList.remove('hidden');
             } else {
                 showToast("Pro Mode requires an NVIDIA GPU", "error");
             }
