@@ -2,7 +2,12 @@ import torch
 import logging
 import os
 import time
-from styletts2.tts import StyleTTS2 as StyleTTS2Wrapper
+try:
+    from styletts2.tts import StyleTTS2 as StyleTTS2Wrapper
+    HAS_STYLE_TTS = True
+except ImportError:
+    HAS_STYLE_TTS = False
+    logger.warning("StyleTTS 2 package not found - running in Basic Mode (Kokoro Only).")
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +28,10 @@ class StyleTTS2:
         logger.info("Loading StyleTTS 2 Model...")
         start_time = time.time()
         
+        if not HAS_STYLE_TTS:
+            logger.error("Cannot load StyleTTS 2: Package not installed.")
+            raise ImportError("StyleTTS 2 package missing. Please use Pro version.")
+
         try:
             # Initialize the wrapper (this downloads weights on first run)
             # Default model is LibriTTS (High Quality)
